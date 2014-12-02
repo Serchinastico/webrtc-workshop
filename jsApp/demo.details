@@ -1,5 +1,5 @@
 name: Intro to WebRTC
-description: candidates exchanging
+description: onaddstream added, copy paste signaling sample working
 authors:
   - Iván Mosquera Paulo
 normalize_css: no

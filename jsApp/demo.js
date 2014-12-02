@@ -12,6 +12,15 @@ init = function (onSuccess) {
     });
     iceCandidates = [];
 
+    var v = document.getElementById('v');
+
+    pc.onaddstream = function (event) {
+        console.log("onaddstream");
+        console.log(event);
+        v.src = URL.createObjectURL(event.stream);
+        v.play();
+    };
+
     pc.onicecandidate = function (event) {
         if (event.candidate) {
             console.log("candidate saved..." + event.candidate.candidate);
