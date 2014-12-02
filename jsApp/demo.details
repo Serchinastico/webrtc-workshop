@@ -1,0 +1,8 @@
+name: Intro to WebRTC
+description: Let's get media!
+authors:
+  - Iván Mosquera Paulo
+normalize_css: no
+wrap: l
+panel_js: 0
+panel_css: 0
