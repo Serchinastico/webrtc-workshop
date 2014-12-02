@@ -1,6 +1,6 @@
 isCaller = false;
-mySid = "ivmos1";
 iceCandidates = [];
+mySid = null;
 
 error = function (error) {
     console.log(error);
@@ -107,6 +107,9 @@ addIceCandidate = function (candidateSdp) {
 }
 
 setInterval(function () {
+    if (!mySid) {
+        return;
+    }
     Api.getMessages(mySid, function (data) {
         console.log(data);
         try {
@@ -145,8 +148,10 @@ setInterval(function () {
     });
 }, 4000);
 
-
-Api.startSession(mySid);
+$('#sessionId').change(function(data) {
+    mySid = $('#sessionId').val();
+    Api.startSession(mySid);
+});
 
 $('#call').click(function () {
     call($('#otherId').val());
