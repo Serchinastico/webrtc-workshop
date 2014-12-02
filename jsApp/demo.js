@@ -1,5 +1,5 @@
 error = function (error) {
-    console.log(error)
+    console.log(error);
 };
 
 pc = new webkitRTCPeerConnection({
@@ -15,8 +15,9 @@ function (localMediaStream) {
     pc.addStream(localMediaStream);
     pc.createOffer(function (offer) {
         pc.setLocalDescription(offer, function () {
-            console.log("Offer: \n", offer);
             console.log(offer.sdp);
+            console.log("Paste on callee:");
+            console.log("receiveOffer(atob('" + btoa(offer.sdp) + "'))");
         });
     });
 },
