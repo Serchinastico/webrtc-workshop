@@ -8,6 +8,10 @@ init = function (onSuccess) {
     pc = new webkitRTCPeerConnection({
         "iceServers": []
     });
+    
+    pc.onicecandidate = function(event) {
+        console.log(event.candidate);
+    };
 
     navigator.webkitGetUserMedia({
         video: true,

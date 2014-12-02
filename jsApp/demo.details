@@ -1,5 +1,5 @@
 name: Intro to WebRTC
-description: Let's answer and receive that answer, refactored
+description: onicecandidate added
 authors:
   - Iván Mosquera Paulo
 normalize_css: no
