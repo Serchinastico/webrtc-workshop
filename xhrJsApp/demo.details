@@ -1,5 +1,5 @@
 name: Intro to WebRTC
-description: make sure we add candidates when we actually can
+description: a bit of frontend so that we can unhardcode stuff
 authors:
   - Iván Mosquera Paulo
 resources:

@@ -1,9 +1,6 @@
-isCaller = true;
+isCaller = false;
 mySid = "ivmos1";
-otherSid = "ivmos2";
 iceCandidates = [];
-
-Api.startSession(mySid);
 
 error = function (error) {
     console.log(error);
@@ -39,7 +36,10 @@ init = function (onSuccess) {
     error);
 }
 
-if (isCaller) {
+/* Init a call */
+call = function (otherId) {
+    otherSid = otherId;
+    isCaller = true;
     init(
 
     function (localMediaStream) {
@@ -55,7 +55,9 @@ if (isCaller) {
     });
 }
 
-receiveOffer = function (offerSdp) {
+receiveOffer = function (offerSdp, otherId) {
+    otherSid = otherId;
+    isCaller = false;
     init(
 
     function (localMediaStream) {
@@ -95,7 +97,7 @@ receiveAnswer = function (answerSdp) {
 }
 
 addIceCandidate = function (candidateSdp) {
-    if (pc.remoteDescription) {
+    if (pc && pc.remoteDescription) {
         pc.addIceCandidate(new RTCIceCandidate({
             candidate: candidateSdp
         }));
@@ -116,7 +118,7 @@ setInterval(function () {
         for (var i = 0; i < data.length; i++) {
             switch (data[i].type) {
                 case "offer":
-                    receiveOffer(data[i].request, otherSid);
+                    receiveOffer(data[i].request, data[i].from);
                     break;
                 case "answer":
                     receiveAnswer(data[i].request);
@@ -130,3 +132,22 @@ setInterval(function () {
 
     });
 }, 4000);
+
+// Poll participants
+setInterval(function () {
+    Api.getParticipants(mySid, function (data) {
+        data = JSON.parse(data);
+        for (var i = 0; i < data.length; i++) {
+            if ($("#otherId option[value='" + data[i] + "']").length == 0) {
+                $('#otherId').append('<option value="' + data[i] + '">' + data[i] + '</a>');
+            }
+        }
+    });
+}, 4000);
+
+
+Api.startSession(mySid);
+
+$('#call').click(function () {
+    call($('#otherId').val());
+});
