@@ -4,7 +4,7 @@ error = function (error) {
     console.log(error);
 }
 
-if (isCaller) {
+init = function (onSuccess) {
     pc = new webkitRTCPeerConnection({
         "iceServers": []
     });
@@ -13,6 +13,12 @@ if (isCaller) {
         video: true,
         audio: true
     },
+    onSuccess,
+    error);
+}
+
+if (isCaller) {
+    init(
 
     function (localMediaStream) {
         pc.addStream(localMediaStream);
@@ -26,21 +32,11 @@ if (isCaller) {
                 console.log("receiveOffer(atob('" + btoa(offer.sdp) + "'))");
             });
         });
-    },
-    error
-
-    );
+    });
 }
 
 receiveOffer = function (offerSdp) {
-    pc = new webkitRTCPeerConnection({
-        "iceServers": []
-    });
-
-    navigator.webkitGetUserMedia({
-        video: true,
-        audio: true
-    },
+    init(
 
     function (localMediaStream) {
         pc.addStream(localMediaStream);
@@ -65,9 +61,7 @@ receiveOffer = function (offerSdp) {
 
         },
         error);
-    },
-
-    error);
+    });
 }
 
 receiveAnswer = function (answerSdp) {
