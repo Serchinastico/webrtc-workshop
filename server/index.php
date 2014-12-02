@@ -9,8 +9,13 @@
 	require_once('StartSessionRequest.php');
 	require_once('RequestFactory.php');
 
+	// Allow fiddle.net origin
+	// TODO take domain for config
+	header("Access-Control-Allow-Origin: http://fiddle.jshell.net");
+
 	$method = isset($_GET['method']) ? $_GET['method'] : NULL;
 	$requestFactory = new RequestFactory();
+
 
 	$request = $requestFactory->createRequest($method, $_GET, $_POST);
 	if (!empty($request)) {
