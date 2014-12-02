@@ -1,5 +1,5 @@
 name: Intro to WebRTC
-description: stun added
+description: candidates exchanging
 authors:
   - Iván Mosquera Paulo
 normalize_css: no

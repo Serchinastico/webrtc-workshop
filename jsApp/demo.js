@@ -10,10 +10,21 @@ init = function (onSuccess) {
             "url": "stun:stun.l.google.com:19302"
         }]
     });
-    
-    pc.onicecandidate = function(event) {
+    iceCandidates = [];
+
+    pc.onicecandidate = function (event) {
         if (event.candidate) {
-            console.log(event.candidate.candidate);
+            console.log("candidate saved..." + event.candidate.candidate);
+            iceCandidates.push(event.candidate.candidate);
+        } else if (pc.iceGatheringState == "complete") {
+            console.log("Paste in callee these calls:");
+
+            out = "";
+            for (var i = 0; i < iceCandidates.length; i++) {
+                out += "addIceCandidate(atob('" + btoa(iceCandidates[i]) + "' ));" + "\n";
+            }
+            console.log(out);
+
         }
     };
 
@@ -76,5 +87,11 @@ receiveAnswer = function (answerSdp) {
     pc.setRemoteDescription(new RTCSessionDescription({
         type: "answer",
         sdp: answerSdp
+    }));
+}
+
+addIceCandidate = function (candidateSdp) {
+    pc.addIceCandidate(new RTCIceCandidate({
+        candidate: candidateSdp
     }));
 }
