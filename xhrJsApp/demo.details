@@ -1,5 +1,5 @@
 name: Intro to WebRTC
-description: s/console.log/Api.*/g
+description: listen for messages
 authors:
   - Iván Mosquera Paulo
 resources:

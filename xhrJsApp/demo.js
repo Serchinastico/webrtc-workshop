@@ -27,7 +27,7 @@ init = function (onSuccess) {
 
     pc.onicecandidate = function (event) {
         if (event.candidate) {
-            Api.sendIceCandidate(mySid, otherSid, iceCandidates[i]);
+            Api.sendIceCandidate(mySid, otherSid, event.candidate.candidate);
         }
     };
 
@@ -94,3 +94,30 @@ addIceCandidate = function (candidateSdp) {
         candidate: candidateSdp
     }));
 }
+
+setInterval(function () {
+    Api.getMessages(mySid, function (data) {
+        console.log(data);
+        try {
+            data = JSON.parse(data);
+        } catch (e) {
+            return;
+        }
+
+        for (var i = 0; i < data.length; i++) {
+            switch (data[i].type) {
+                case "offer":
+                    receiveOffer(data[i].request, otherSid);
+                    break;
+                case "answer":
+                    receiveAnswer(data[i].request);
+                    break;
+                case "candidate":
+                    addIceCandidate(data[i].request);
+                    break;
+
+            };
+        }
+
+    });
+}, 4000);
