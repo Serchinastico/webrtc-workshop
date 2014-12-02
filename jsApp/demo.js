@@ -6,11 +6,15 @@ error = function (error) {
 
 init = function (onSuccess) {
     pc = new webkitRTCPeerConnection({
-        "iceServers": []
+        "iceServers": [{
+            "url": "stun:stun.l.google.com:19302"
+        }]
     });
     
     pc.onicecandidate = function(event) {
-        console.log(event.candidate);
+        if (event.candidate) {
+            console.log(event.candidate.candidate);
+        }
     };
 
     navigator.webkitGetUserMedia({
