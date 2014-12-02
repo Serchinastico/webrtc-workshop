@@ -33,7 +33,7 @@ if (isCaller) {
 }
 
 receiveOffer = function (offerSdp) {
-    var pc = new webkitRTCPeerConnection({
+    pc = new webkitRTCPeerConnection({
         "iceServers": []
     });
 
@@ -68,4 +68,11 @@ receiveOffer = function (offerSdp) {
     },
 
     error);
+}
+
+receiveAnswer = function (answerSdp) {
+    pc.setRemoteDescription(new RTCSessionDescription({
+        type: "answer",
+        sdp: answerSdp
+    }));
 }
