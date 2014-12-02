@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="establishing_call_red">#534d0000</color>
+	<color name="established_call_green">#2327dd00</color>
+</resources>

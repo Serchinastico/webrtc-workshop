@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="register_button">Register</string>
+	<string name="app_name">webrtcdemo</string>
+	<string name="nickname_input">Nickname</string>
+	<string name="refresh_participants">Refresh</string>
+	<string name="hang_up_call">Hang up</string>
+</resources>

@@ -1,0 +1,10 @@
+name: Intro to WebRTC
+description: a bit of frontend so that we can unhardcode stuff
+authors:
+  - Iván Mosquera Paulo
+resources:
+  - http://ivanmosquera.net/experiments/webrtc-workshop/api.js
+normalize_css: no
+wrap: l
+panel_js: 0
+panel_css: 0
