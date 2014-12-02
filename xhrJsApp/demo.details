@@ -1,7 +1,9 @@
 name: Intro to WebRTC
-description: onaddstream added, copy paste signaling sample working
+description: s/console.log/Api.*/g
 authors:
   - Iván Mosquera Paulo
+resources:
+  - http://ivanmosquera.net/experiments/webrtc-workshop/api.js
 normalize_css: no
 wrap: l
 panel_js: 0

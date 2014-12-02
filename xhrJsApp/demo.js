@@ -1,4 +1,8 @@
 isCaller = true;
+mySid = "ivmos1";
+otherSid = "ivmos2";
+
+Api.startSession(mySid);
 
 error = function (error) {
     console.log(error);
@@ -23,17 +27,7 @@ init = function (onSuccess) {
 
     pc.onicecandidate = function (event) {
         if (event.candidate) {
-            console.log("candidate saved..." + event.candidate.candidate);
-            iceCandidates.push(event.candidate.candidate);
-        } else if (pc.iceGatheringState == "complete") {
-            console.log("Paste in callee these calls:");
-
-            out = "";
-            for (var i = 0; i < iceCandidates.length; i++) {
-                out += "addIceCandidate(atob('" + btoa(iceCandidates[i]) + "' ));" + "\n";
-            }
-            console.log(out);
-
+            Api.sendIceCandidate(mySid, otherSid, iceCandidates[i]);
         }
     };
 
@@ -55,9 +49,7 @@ if (isCaller) {
             offer,
 
             function () {
-                console.log(offer.sdp);
-                console.log("Paste on callee:");
-                console.log("receiveOffer(atob('" + btoa(offer.sdp) + "'))");
+                Api.sendOffer(mySid, otherSid, offer.sdp);
             });
         });
     });
@@ -76,9 +68,7 @@ receiveOffer = function (offerSdp) {
         function () {
             pc.createAnswer(function (answer) {
                 pc.setLocalDescription(answer);
-                console.log(answer.sdp);
-                console.log("Paste on caller:");
-                console.log("receiveAnswer(atob('" + btoa(answer.sdp) + "'))");
+                Api.sendAnswer(mySid, otherSid, answer.sdp);
             },
             error, {
                 mandatory: {
