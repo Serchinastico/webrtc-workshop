@@ -1,6 +1,7 @@
 isCaller = true;
 mySid = "ivmos1";
 otherSid = "ivmos2";
+iceCandidates = [];
 
 Api.startSession(mySid);
 
@@ -14,7 +15,6 @@ init = function (onSuccess) {
             "url": "stun:stun.l.google.com:19302"
         }]
     });
-    iceCandidates = [];
 
     var v = document.getElementById('v');
 
@@ -77,6 +77,11 @@ receiveOffer = function (offerSdp) {
                 }
             });
 
+            // Sending pending candidates
+            for (var i = 0; i < iceCandidates.length; i++) {
+                addIceCandidate(iceCandidates[i]);
+            }
+
         },
         error);
     });
@@ -90,9 +95,13 @@ receiveAnswer = function (answerSdp) {
 }
 
 addIceCandidate = function (candidateSdp) {
-    pc.addIceCandidate(new RTCIceCandidate({
-        candidate: candidateSdp
-    }));
+    if (pc.remoteDescription) {
+        pc.addIceCandidate(new RTCIceCandidate({
+            candidate: candidateSdp
+        }));
+    } else {
+        iceCandidates.push(candidateSdp);
+    }
 }
 
 setInterval(function () {

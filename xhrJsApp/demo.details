@@ -1,5 +1,5 @@
 name: Intro to WebRTC
-description: listen for messages
+description: make sure we add candidates when we actually can
 authors:
   - Iván Mosquera Paulo
 resources:
